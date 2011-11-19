@@ -1,0 +1,21 @@
+ 
+<?php
+
+/* $this->form->setAction($this->url()); */
+echo $this->form;
+
+echo "
+<script> 
+$('#sign').submit(function() {
+  alert('Handler for .submit() called.');
+    $.post('" .$this->baseUrl("/guestbook/sign")."',{
+                email: email,
+                comment: comment
+            }, function(data){
+            }, 'json');
+
+  return false;
+});
+</script>
+";
+

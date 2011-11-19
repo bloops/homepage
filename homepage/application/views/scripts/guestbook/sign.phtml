@@ -1,0 +1,42 @@
+ 
+<?php
+
+/* $this->form->setAction($this->url()); */
+echo $this->form;
+?>
+<a id="submitbutton" href="#">Submit</a>
+<?php
+
+echo "
+<script> 
+$(document).ready(function(){
+$('#sign').submit(function() {
+  alert('Handler for .submit() called.');
+    $.post('" .$this->baseUrl("/guestbook/sign")."',{
+                email: email,
+                comment: comment
+            }, function(data){
+            }, 'json');
+
+  return false;
+});
+
+$('#submitbutton').click(function() {
+  alert('Handler for submitbutton called.');
+  var values = {};
+  $.each($('#sign').serializeArray(), function(i, field) {
+    values[field.name] = field.value;
+  });
+   alert(values['comment']);
+    $.post('" .$this->baseUrl("/guestbook/sign")."',{
+                email: values['email'],
+                comment: values['comment']
+            } );
+
+  return false;
+});
+
+});
+</script>
+";
+

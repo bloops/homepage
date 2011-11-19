@@ -1,0 +1,46 @@
+    <!-- application/views/scripts/guestbook/index.phtml -->
+     
+    <p><a href="<?php echo $this->url(
+        array(
+            'controller' => 'guestbook',
+            'action'     => 'sign'
+        ),
+        'default',
+        true) ?>">Sign Our Guestbook</a></p>
+
+ 
+<?php
+
+/* $this->form->setAction($this->url()); */
+echo $this->form;
+
+echo "
+<script> 
+$('#sign').submit(function() {
+    $.post('" .$this->baseUrl("/guestbook/sign")."',{
+                email: email,
+                comment: comment
+            }, function(data){
+                 alert('Success');
+            }, 'json');
+
+  return false;
+});
+</script>
+";
+?>
+
+     
+    Guestbook Entries: <br />
+    <dl>
+        <?php foreach ($this->entries as $entry): ?>
+        <dt><?php echo $this->escape($entry->email) ?></dt>
+        <dd><?php echo $this->escape($entry->comment) ?></dd>
+        <?php endforeach ?>
+    </dl>
+
+
+<br /><br />
+<div id="view-content">
+	<p>View script for controller <b>Guestbook</b> and script/action name <b>index</b></p>
+</div>

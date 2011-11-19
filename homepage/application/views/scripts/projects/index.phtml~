@@ -1,0 +1,43 @@
+<div id="project-box">
+<h1 style="margin-top: 0px" ><a href="http://userscripts.org/scripts/show/107714">SpojGuide</a></h1>
+<img style="float:right" src="http://s3.amazonaws.com/uso_ss/13178/thumb.png?1311410730" alt="Thumb">
+<div id="project-content">
+This greasemonkey script helps you out in your perpetual search for the next SPOJ problem to solve! Works when you hunt for problems from another user's status page. It color codes problems based on the number of ACs, strikes out your solved problems in addition to some other tweaks. 
+It makes use of an Appspot backend application which periodically fetches data from SPOJ and stores it in a database. Code available at <a href="https://github.com/bloops/SpojGuide">github</a>.
+</div>
+</div>
+<br/>
+
+<div id="project-box">
+<a href="http://www.flickr.com/photos/15967538@N04/1727478737/" title="Third Person Shooter by bloopsie, on Flickr"><img style="float:right" src="http://farm3.staticflickr.com/2274/1727478737_16e47ec69c_t.jpg" width="100" height="72" alt="Third Person Shooter"></a>
+<h1 style="margin-top: 0px" ><a href="http://theprocrastinator.wordpress.com/category/opengl-3/">OpenGL Projects</a></h1>
+<div id="project-content"></p>
+These are my old (a long time ago when I thought windows was the only operating system) projects when I used to dabble with <a href="http://www.opengl.org/">OpenGL</a>.
+</div>
+</div>
+
+<br/>
+
+<div id="project-box">
+<h1 style="margin-top: 0px" ><a href="http://www.cmi.ac.in/~anudhyan/fiesta/">Fiesta Web Design</a></h1>
+<div id="project-content"></p>
+I designed CMI Fiesta 2011 homepage and the logo. The icons are from <a href="http://gnome-look.org/content/show.php/Faenza?content=128143">Faenza Icon Theme</a>.
+</div>
+</div>
+
+<br/>
+
+<div id="project-box">
+<h1 style="margin-top: 0px" ><a href="http://www.cmi.ac.in/~anudhyan/">Homepage</a></h1>
+<div id="project-content"></p>
+This website is actually a rudimentary database-driven CMS behind the scenes. I make extensive use of php (Zend Framework) and AJAX (JQuery).
+</div>
+</div>
+
+
+
+
+
+
+
+

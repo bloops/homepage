@@ -1,0 +1,223 @@
+<?php
+
+class IndexController extends Zend_Controller_Action
+{
+
+    public function init()
+    {
+        /* Initialize action controller here */
+    }
+
+    public function indexAction()
+    {
+        $mapper = new Application_Model_ContentMapper();
+        $this->view->entries = $mapper->fetchAllType('scribble');
+    }
+
+    public function adminAction()
+    {
+    }
+
+    public function addScribbleAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+        $request = $this->getRequest();
+        $data = $request->getParams();
+        if ($this->getRequest()->isPost()) 
+        {
+            $scribble = new Application_Model_Content($data);
+            $mapper  = new Application_Model_ContentMapper();
+            $mapper->save($scribble);
+        }        
+    }
+
+    public function updateScribbleAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+        $request = $this->getRequest();
+        $data = $request->getParams();
+        if ($this->getRequest()->isPost()) 
+        {
+            $post = new Application_Model_Content($data);
+            $mapper  = new Application_Model_ContentMapper();
+            $mapper->update($post);
+        }        
+    }
+
+    public function deleteScribbleAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+        $request = $this->getRequest();
+        $data = $request->getParams();
+        $mapper = new Application_Model_ContentMapper();
+        $mapper->delete($data['id']);
+    }
+
+    public function fetchScribblesAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+
+        $blog = new Application_Model_ContentMapper();
+        $entries = $blog->fetchAllType('scribble');
+        foreach($entries as $entry)
+        {
+            echo '<li><a class="blogpost" href="#" id="'.$entry->getId().'">'.
+                '<img src="'.$this->view->baseUrl("icons/color_18/notepad").
+                '"/>'.$entry->getTitle().
+                '</a></li>';
+        }        
+    }
+
+    public function fetchSingleScribbleAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+        if (!$this->getRequest()->isPost()) {
+            return;
+        }
+        $request = $this->getRequest();
+        $data = $request->getParams();
+        $mapper = new Application_Model_ContentMapper();
+        $post = new Application_Model_Content();
+        $mapper->find($data['id'],$post);
+        echo $post->getContent();
+    }
+
+    public function recentAction()
+    {
+        $mapper = new Application_Model_ContentMapper();
+        $this->view->entries = $mapper->fetchAllType('update');
+    }
+
+    public function addUpdateAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+        $request = $this->getRequest();
+        $data = $request->getParams();
+        if ($this->getRequest()->isPost()) 
+        {
+            $update = new Application_Model_Content($data);
+            $mapper  = new Application_Model_ContentMapper();
+            $mapper->save($update);
+        }        
+    }
+
+    public function deleteUpdateAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+        $request = $this->getRequest();
+        $data = $request->getParams();
+        $mapper = new Application_Model_ContentMapper();
+        $mapper->delete($data['id']);
+    }
+
+    public function fetchSingleUpdateAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+        if (!$this->getRequest()->isPost()) {
+            return;
+        }
+        $request = $this->getRequest();
+        $data = $request->getParams();
+        $mapper = new Application_Model_ContentMapper();
+        $post = new Application_Model_Content();
+        $mapper->find($data['id'],$post);
+        echo $post->getContent();
+    }
+
+    public function fetchUpdatesAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+
+        $blog = new Application_Model_ContentMapper();
+        $entries = $blog->fetchAllType('update');
+        echo '<ul>';
+        foreach($entries as $entry)
+        {
+            echo '<li class="edit-update" id="'.$entry->getId().'"><a>'.
+                /* '<img src="'.$this->view->baseUrl("icons/color_18/notepad"). 
+                   '"/>'.*/($entry->getContent()).
+                '</a></li>';
+        }        
+        echo '</ul>';
+    }
+
+    public function updateUpdateAction()
+    {
+        $this->_helper->layout->disableLayout();    //disable layout
+        $this->_helper->viewRenderer->setNoRender(); //suppress       
+        $request = $this->getRequest();
+        $data = $request->getParams();
+        if ($this->getRequest()->isPost()) 
+        {
+            $post = new Application_Model_Content($data);
+            $mapper  = new Application_Model_ContentMapper();
+            $mapper->update($post);
+        }        
+    }
+
+    public function adminUpdatesAction()
+    {
+        
+    }
+
+    public function linksAction()
+    {
+        // action body
+        $this->_helper->layout->disableLayout();    //disable layout
+        
+    }
+
+    public function loginAction()
+    {
+        // action body
+    }
+
+    public function logoutAction()
+    {
+        // action body
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

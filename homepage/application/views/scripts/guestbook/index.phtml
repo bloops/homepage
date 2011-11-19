@@ -1,0 +1,58 @@
+    <!-- application/views/scripts/guestbook/index.phtml -->
+     
+    <p><a href="<?php echo $this->url(
+        array(
+            'controller' => 'guestbook',
+            'action'     => 'sign'
+        ),
+        'default',
+        true) ?>">Sign Our Guestbook</a></p>
+
+ 
+<?php
+
+/* $this->form->setAction($this->url()); */
+echo $this->form;
+
+echo "
+<script> 
+
+$(document).ready(function(){
+
+var render = function(){
+ $.post('". $this->baseUrl("/guestbook/fetch")."', function(data) {
+   $('#entries').html(data);
+ });    
+};
+
+render();
+
+$('#submitbutton').click(function() {
+  var values = {};
+  $.each($('#sign').serializeArray(), function(i, field) {
+    values[field.name] = field.value;
+  });
+    $.post('" .$this->baseUrl("/guestbook/sign")."',{
+                email: values['email'],
+                comment: values['comment']
+            }, function(data){render();});
+
+  return false;
+});
+
+});
+</script>
+";
+?>
+
+    <a id="submitbutton" href="#">Submit</a></br>
+     
+    Guestbook Entries: <br />
+    <div id="entries">
+    </div>
+
+
+<br /><br />
+<div id="view-content">
+	<p>View script for controller <b>Guestbook</b> and script/action name <b>index</b></p>
+</div>

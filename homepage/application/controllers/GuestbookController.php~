@@ -1,0 +1,54 @@
+<?php
+
+class GuestbookController extends Zend_Controller_Action
+{
+
+    protected $_form = null;
+
+    public function init()
+    {
+        /* Initialize action controller here */
+    }
+
+    public function indexAction()
+    {
+        // action body
+        $guestbook = new Application_Model_GuestbookMapper();
+        $this->view->entries = $guestbook->fetchAll();
+        $form    = new Application_Form_Guestbook();
+        $this->view->form = $form;
+    }
+
+    public function signAction()
+    {
+        /* $this->_helper->layout->disableLayout();    //disable layout */
+        /* $this->_helper->viewRenderer->setNoRender(); //suppress auto-rendering */
+        /* echo "Hello"; */
+        /* return; */
+        // action body
+        $form = new Application_Form_Guestbook;
+        $request = $this->getRequest();
+ 
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($request->getPost())) {
+                $comment = new Application_Model_Guestbook($form->getValues());
+                $mapper  = new Application_Model_GuestbookMapper();
+                $mapper->save($comment);
+            }
+        }
+        $this->view->form = $form;
+         
+    }
+
+    public function fetchAction()
+    {
+        // action body
+    }
+
+
+}
+
+
+
+
+

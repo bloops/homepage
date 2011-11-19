@@ -1,0 +1,31 @@
+<?php $this->headTitle("Problem: ");?>
+
+  <script>
+
+  $(document).ready(function(){
+          $("a[name='back']").button({icons: {primary: "ui-icon-arrowreturnthick-1-w"}});
+      });
+</script>
+
+<a name="back" href="<?php echo $this->baseUrl('/problems')?>" 
+style="font-size: 10px; float: right; margin-top: 30px;" 
+class="back">Back to Problems</a>
+     
+
+
+
+<h1><?php echo $this->problem->getName()?></h1>
+
+
+<div id="postcontent">
+ <a href="<?php echo $this->problem->getUri()?>">Problem Statement</a>
+</div>
+<br/>
+ <?php echo $this->problem->getContent() ?>
+<h1></h1>
+<div id="postcontent">
+<pre class="prettyprint linenums">
+<?php echo $this->escape($this->problem->getCode()) ?>
+</pre>
+</div>
+
