@@ -1,0 +1,58 @@
+<?php 
+function star($n,$baseurl)
+{
+    if($n < 1)
+        return;
+    $m = 5 - $n;
+    while($n > 0)
+    {
+        echo '<img src="'.$baseurl.'icons/color_18/star.png'.'">';
+        $n--;
+    }    
+    while($m > 0)
+    {
+        echo '<img src="'.$baseurl.'icons/gray_18/star.png'.'">';
+        $m--;
+    }    
+}
+
+function getSource($uri){
+    $sourcearray = array('Spoj','Topcoder','Codeforces');
+    $parsed = parse_url($uri);
+    if(!array_key_exists('host',$parsed))
+        return '';
+    $domain = $parsed['host'];
+    foreach($sourcearray as $s){
+        if(stripos($domain,$s)!==false){
+            return $s;
+        }
+    }
+    return $domain;
+}
+?>
+<h1>Algorithm Problems</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Problem</th>
+			<th>Category</th>
+			<th>Source</th>
+			<th>Difficulty</th>
+			<th>Cuteness</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php $odd = true ?>
+<?php foreach ($this->problems as $p): ?>
+		<tr class="<?php if($odd) echo 'odd'; else echo 'even'?> ">
+     <?php $odd = !$odd ?>
+    <td><a href="<?php echo $this->baseUrl('problems/p/id/'.$p->getId()) ?>"><?php echo $p->getName() ?></a></td>
+    <td><?php echo $p->description?></td>
+    <td><?php echo '<a href="'.$p->uri.'">'.getSource($p->uri).'</a>'?></td>
+    <td style="text-align:center"><?php star($p->difficulty,$this->baseUrl)?></td>
+    <td style="text-align:center"><?php star($p->cuteness,$this->baseUrl)?></td>
+		</tr>
+     <?php endforeach ?>
+	</tbody>
+</table>
+

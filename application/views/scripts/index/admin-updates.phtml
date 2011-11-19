@@ -1,0 +1,189 @@
+  <script>
+
+
+  $(document).ready(function(){
+          var content_type = 'update';
+          var editpostid = undefined;
+          var fetchPosts = function() {
+              $.post('<?php echo $this->baseUrl("/index/fetch-updates")?>',
+                     function(data){$('#sidelinks').html(data)});
+          };
+
+          fetchPosts();
+          $("#dialog").dialog({
+              autoOpen: false,
+              modal: true
+          });
+
+
+          var editPosts = function() {
+              $("#addpost").hide();
+              fetchPosts();
+              $("#sidelinks").show();
+              $("#editpost").hide();
+              $("#radio2").attr("checked","checked").button("refresh");
+              $("button[name='back']").hide();              
+          }
+          $('#notification').hide();
+          $('#addpost').hide();
+          $('#editpost').hide();
+
+          editPosts();
+          $('li.edit-update').live('click',function(){
+                  $editpostid = $(this).attr('id');
+                  $('#editpost').show();
+                  $('#sidelinks').hide();
+                  $.post('<?php echo
+                          $this->baseUrl("/index/fetch-single-update")?>',{
+                            id: $editpostid,
+                                 }, function(data){
+                             $('#edit-post-content').val(data)});
+                  $("button[name='back']").show();              
+                  return false;
+              });
+          $('#preview-post').click(function(){
+                  window.open('<?php echo $this->baseUrl("/index")?>');
+              });
+          $('input[type=radio]').change(function(){
+
+                  if ($("#radio1:checked").val()){
+                      $("#addpost").show();
+                      $("#editpost").hide();
+                      $("#sidelinks").hide();
+                      $("button[name='back']").hide();              
+                  }
+                  else {
+                      editPosts();
+                  }
+                  return false;
+              });
+          
+          $("button[name='back'],button#cancel-edit").click(function() {
+                  editPosts();
+                  return false;
+              });
+
+          $('#post').click(function() {
+                  $postcontent = $('textarea#post-content').val();
+                  $.post('<?php echo $this->baseUrl("/index/add-update")?>',{
+                              content: $postcontent,
+                              type: content_type
+                              }, function(data){
+                          editPosts();
+                          $('#notification').addClass("ui-state-highlight");
+                          $('#notification').html("Update added!");
+                          $('#notification').show().delay(3000).fadeOut(1000);
+                          
+                          ;});
+
+                  return false;
+              });
+
+          var deletePost = function() {
+
+                  $.post('<?php echo $this->baseUrl("/index/delete-update")?>',{
+                      id: $editpostid,
+                  }, function(data){
+                          editPosts();
+                          $('#notification').addClass("ui-state-error");
+                          $('#notification').html("Update deleted!");
+                          $('#notification').show().delay(3000).fadeOut(1000);
+                  });
+          };
+
+          $('#delete-post').click(function() {
+                  $("#dialog").dialog({
+                      buttons : {
+                              "Confirm" : function() {
+                                  $(this).dialog("close");
+                                  deletePost();
+                              },
+                              "Cancel" : function() {
+                                  $(this).dialog("close");
+                                  return false;
+                              }
+                          }
+                      });
+
+                  $("#dialog").dialog("open");
+
+                  return false;
+              });
+
+          $('#update-post').click(function() {
+                  $postcontent = $('textarea#edit-post-content').val();
+                  $.post('<?php echo $this->baseUrl("/index/update-update")?>',{
+                      id: $editpostid,
+                              content: $postcontent,
+                              type: content_type
+                              }, function(data){
+                          $('#notification').removeClass("ui-state-error").addClass("ui-state-highlight");                          
+                          $('#notification').html("Update updated! ;)");
+                          $('#notification').show().delay(3000).fadeOut(1000);
+                          });
+
+                  return false;
+              });
+
+	$(function() {
+          $('#radio').buttonset();
+          $('#radio1').button({icons: {primary: "ui-icon-plusthick"}});
+          $('#radio2').button({icons: {primary: "ui-icon-pencil"}});
+          $("button[name='back']").button({icons: {primary: "ui-icon-arrowreturnthick-1-w"}});
+          $("button").button();
+          
+
+		$( "a", ".ui" ).click(function() { return false; });
+	});
+
+  });
+	</script>     
+
+<h1>Recent Updates Admin</h1>
+<br>
+<div class="ui">
+<div style="display:inline" id="radio">
+		<input class="button" type="radio" id="radio1" name="radio" /><label for="radio1">Add New Update</label>
+		<input class="button" type="radio" id="radio2" name="radio" checked="checked" /><label id="edit-posts" for="radio2">Edit Updates</label>
+</div>
+<button name="back">Back</button>
+</div>
+<br/> 
+
+<div id="addpost">
+
+<textarea id="post-content" rows="10" name="post-content"></textarea>
+<div class="buttons">
+<button id="post" class="ui" >Post Update</button>
+</div>
+</div>
+<br/>
+<div id="sidelinks">
+
+</div>
+
+<div id="editpost">
+
+<textarea id="edit-post-content" rows="10" name="edit-post-content"></textarea>
+
+<button class="ui" id="update-post">Update</button>
+
+<button class="ui" id="preview-post">Preview</button>
+
+<button class="ui" id="cancel-edit">Cancel</button>
+
+
+<button class="ui" id="delete-post">Delete</button>
+
+
+
+</div>
+
+<div id="notification" class="ui-state-highlight">
+<br>
+</div>
+
+
+<div id="dialog" title="Confirm Deletion" style="font-size: 12px">
+  Are you sure you want to delete this update?
+</div>

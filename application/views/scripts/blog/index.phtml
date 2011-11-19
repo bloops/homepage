@@ -1,0 +1,20 @@
+<?php foreach ($this->entries as $entry): ?>
+<h1><a href="<?php echo $this->baseUrl('blog/post/id/'.$entry->id); ?>"><?php echo $this->escape($entry->title) ?></a></h1>
+<div id="postcontent">
+<?php echo ($entry->content) ?>
+</div>
+<div id="post-end">
+     <a class="leave-comment" href="<?php echo $this->baseUrl('blog/post/id/'.$entry->id); ?>#leave-a-comment">Leave a Comment</a>
+     <?php if( $this->commentcounts[$entry->id] > 0) {
+            echo '<a href="'. $this->baseUrl('blog/post/id/'.$entry->id.'#comments').'">'.$this->commentcounts[$entry->id].' comments</a>';
+     }?> 
+     <div class="right">
+     Posted on <?php echo date("F j, Y \a\\t g:i a",strtotime($entry->created)) ?>
+     </div>
+</div>
+
+
+
+ <?php endforeach ?>
+
+

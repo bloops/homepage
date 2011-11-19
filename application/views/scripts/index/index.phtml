@@ -1,0 +1,11 @@
+<?php foreach ($this->entries as $entry): ?>
+<h1><?php echo $this->escape($entry->title) ?></h1>
+<div id="postcontent">
+<?php echo ($entry->content) ?>
+</div>
+<div id="scribble-end">
+     <div style="float:right">
+     ~bloops on <?php echo date("F j, Y \a\\t g:i a",strtotime($entry->created)) ?>
+     </div>
+</div>
+<?php endforeach ?>

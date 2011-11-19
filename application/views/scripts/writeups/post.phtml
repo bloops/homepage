@@ -1,0 +1,22 @@
+  <script>
+  $(document).ready(function(){
+          $("a[name='back']").button({icons: {primary: "ui-icon-arrowreturnthick-1-w"}});
+      });
+</script>
+
+<a name="back" href="<?php echo $this->baseUrl('/writeups')?>" 
+style="font-size: 10px; float: right; margin-top: 30px;" 
+class="back">Back to Writeups</a>
+     
+
+<h1><?php echo $this->writeup->getTitle()?></h1>
+<div id="postcontent">
+     <?php echo $this->writeup->getContent() ?>
+</div>
+<div id="post-end">
+     <div class="right">
+     <b>bloops</b> on <?php echo date("F j, Y \a\\t g:i a",strtotime($this->writeup->created)) ?>
+     </div>
+</div>
+
+

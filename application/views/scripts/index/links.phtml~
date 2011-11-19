@@ -1,0 +1,12 @@
+<ul>
+  <li class="even">
+
+    <img class="icon" src="<?php echo $this->baseUrl('icons/color_128/earphones.png')?>" />
+    Listen: <br><a href="http://www.youtube.com/watch?v=MCUlTN1gVCs">Lizstomania - Phoenix</a>
+  </li>
+  <li>
+    <img class="icon" src="<?php echo $this->baseUrl('icons/color_128/book.png')?>" />                
+    Good read: <br>
+    <a href="http://razimanmistranslated.blogspot.com/">Mistranslated: Genie</a>
+
+</ul>
